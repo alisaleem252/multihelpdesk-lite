@@ -76,18 +76,23 @@ if($url_action_value != 'edit' ){?>
                 </td>
             	<td>
 					<table class="tickets">
-                    <?php if(isset($tickets[0])){ ?>
-                    	<tr><td colspan="5" class="tick_gen_cols"><?php if($pages > 1){?>
+                    <?php if(isset($tickets[0])){
+                    	        if($pages > 1){?>
+									<tr><th colspan="5" class="tick_gen_cols">
               
-                Pages: <a>&laquo;</a></li><?php
-                    for($index = 1; $index <= $pages; $index++){?>
-                        
-                            <a href="?action=<?php echo $url_action_value.'&id='.$agent_id.'&pagenumber='.$index; ?>" ><?php echo $index; ?></a>
-    <?php			} // for($index = 1; $index <= $pages; $index++) ?>
-                <a>&raquo;</a>
+										Pages: <a>&laquo;</a> <?php
+											for($index = 1; $index <= $pages; $index++){
+												if($url_action_value && $url_action_value != 'edit')
+													echo '<a href="?action='.$url_action_value.'&pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												else
+													echo '<a href="?pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												?>
+							<?php			} // for($index = 1; $index <= $pages; $index++) ?>
+										 <a>&raquo;</a>
               
             
-    <?php } // if($pages > 1) ?></td></tr>
+    								<br /></th></tr>
+                               <?php } // if($pages > 1) ?>
                         <tr><th colspan="5" class="tick_gen_cols">*<?php _e('LDAT = Last Date/Time Activity of the Ticket','mhelpdesk');?></th></tr>
                          <tr>
 							<th class="tick_gen_cols"><?php _e('Ticket Title','mhelpdesk');?></th>
@@ -143,22 +148,25 @@ if ( $rating ){
 				 else {?>
 					
 				<tr>
-					<td colspan="5" class="tick_gen_cols"><?php echo '<h1 class="error">'.__('The Company has no ticket at the moment!','mhelpdesk').'</h1>'; ?></td>
+					<td colspan="5" class="tick_gen_cols"><?php echo '<h1 class="error">'.__('The Company has no ticket (of type) at the moment!','mhelpdesk').'</h1>'; ?></td>
 				</tr>
-				<?php } ?>
-				<tr>
-					<td colspan="5" class="tick_gen_cols"><?php if($pages > 1){?>
-              
-                Pages: <a>&laquo;</a></li><?php
-                    for($index = 1; $index <= $pages; $index++){?>
-                        
-                            <a href="?action=<?php echo $url_action_value.'&id='.$agent_id.'&pagenumber='.$index; ?>" ><?php echo $index; ?></a>
-    <?php			} // for($index = 1; $index <= $pages; $index++) ?>
-                <a>&raquo;</a>
-              
-            
-    <?php } // if($pages > 1) ?></td>
-				</tr>
+				<?php }  
+                    if($pages > 1){?>
+                        <tr><th colspan="5" class="tick_gen_cols">
+    
+                            Pages: <a>&laquo;</a> <?php
+                                for($index = 1; $index <= $pages; $index++){
+                                    if($url_action_value && $url_action_value != 'edit')
+                                        echo '<a href="?action='.$url_action_value.'&pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+                                    else
+                                        echo '<a href="?pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+                                    ?>
+                <?php			} // for($index = 1; $index <= $pages; $index++) ?>
+                                <a>&raquo;</a>
+    
+
+                        <br /></th></tr>
+                    <?php } // if($pages > 1) ?>
                      </table>                
                 </td>                
             </tr>

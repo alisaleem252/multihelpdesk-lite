@@ -39,9 +39,7 @@
 		<tr>
 			<th><?php _e('Your Full Name','mhelpdesk');?></th>
 			<td>
-				<input title="<?php _e('Enter your complete name properly; however only these 2 special characters [. -] are allowed','mhelpdesk');?>" 
-				type="text" pattern="[a-zA-Z]+(([\.\- ][a-zA-Z ])?[a-zA-Z]*)*"
-				name="fullname" onchange="this.setCustomValidity(this.validity.patternMismatch ? '' : '');" required />
+				<input type="text" name="fullname" required />
 			</td>
 		</tr>
 		<tr>

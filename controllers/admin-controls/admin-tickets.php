@@ -14,6 +14,7 @@ $message = '';
 	$curUserID = get_current_user_id();
 	$urlCompSlug = get_query_var('companyname');
 $comp_DB_ID_obj = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_type = 'companies' AND post_status = 'publish' AND post_name = '$urlCompSlug'");
+$pages = array();
 
 
 		$comp_name = $comp_DB_ID_obj[0]->post_title;
@@ -704,7 +705,6 @@ ORDER BY ticketposts.post_modified DESC");
 
 
 
-$pages = array();
 $pages = count($pages) / (int)$ticketsperpage;
 if($pages > 0) if(is_float($pages)) $pages = ((int)$pages +1);
 

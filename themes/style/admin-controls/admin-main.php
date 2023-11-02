@@ -11,7 +11,7 @@
 	<div role="tabpanel">
 			  <!-- Nav tabs -->
 			  <ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li role="presentation" class="active"><a href="tickets/?pagenumber=1" aria-controls="hotel" role="tab" ><?php _e('Tickets','mhelpdesk');?></a></li>
+				<li role="presentation" class=""><a href="tickets/?pagenumber=1" aria-controls="hotel" role="tab" ><?php _e('Tickets','mhelpdesk');?></a></li>
 				<li role="presentation"><a href="agents" aria-controls="agents" role="tab" ><?php _e('Agents','mhelpdesk');?></a></li>
 				<li role="presentation"><a href="customers" aria-controls="customers" role="tab" ><?php _e('Customers','mhelpdesk');?></a></li>
                 <li role="presentation"><a href="settings" aria-controls="settings" role="tab" ><?php _e('Settings','mhelpdesk');?></a></li>

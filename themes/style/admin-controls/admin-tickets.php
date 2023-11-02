@@ -312,12 +312,15 @@ if((isset($_GET['action']) && $_GET['action'] != 'edit' && $_GET['action'] != 'd
 								if($pages > 1){?>
 									<tr><th colspan="6" class="tick_gen_cols">
               
-                Pages: <a>&laquo;</a></li><?php
-                    for($index = 1; $index <= $pages; $index++){?>
-                        
-                            <a href="?action=<?php echo $url_action_value.'&id='.$agent_id.'&pagenumber='.$index; ?>" ><?php echo $index; ?></a>
-    <?php			} // for($index = 1; $index <= $pages; $index++) ?>
-                <a>&raquo;</a>
+										Pages: <a>&laquo;</a> <?php
+											for($index = 1; $index <= $pages; $index++){
+												if($url_action_value && $url_action_value != 'edit')
+													echo '<a href="?action='.$url_action_value.'&pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												else
+													echo '<a href="?pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												?>
+							<?php			} // for($index = 1; $index <= $pages; $index++) ?>
+										 <a>&raquo;</a>
               
             
     								<br /></th></tr>
@@ -387,20 +390,23 @@ if((isset($_GET['action']) && $_GET['action'] != 'edit' && $_GET['action'] != 'd
 											<td colspan="6">
 												<?php echo '<h1 >'.__('No '.strtoupper($url_action_value).' ticket at the moment!','mhelpdesk').'</h1>'; ?></td>
 											</tr>
-								<?php } ?>
-									<tr>
-										<td colspan="6"><?php if($pages > 1){?>
+								<?php } 
+									if($pages > 1){?>
+									<tr><th colspan="6" class="tick_gen_cols">
               
-                Pages: <a>&laquo;</a></li><?php
-                    for($index = 1; $index <= $pages; $index++){?>
-                        
-                            <a href="?action=<?php echo $url_action_value.'&id='.$agent_id.'&pagenumber='.$index; ?>" ><?php echo $index; ?></a>
-    <?php			} // for($index = 1; $index <= $pages; $index++) ?>
-                <a>&raquo;</a>
+										Pages: <a>&laquo;</a> <?php
+											for($index = 1; $index <= $pages; $index++){
+												if($url_action_value && $url_action_value != 'edit')
+													echo '<a href="?action='.$url_action_value.'&pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												else
+													echo '<a href="?pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												?>
+							<?php			} // for($index = 1; $index <= $pages; $index++) ?>
+										 <a>&raquo;</a>
               
             
-    <?php } // if($pages > 1) ?> </td>
-									</tr>
+    								<br /></th></tr>
+                               <?php } // if($pages > 1) ?>
 							</table>                
 					</td>                
 				</tr>

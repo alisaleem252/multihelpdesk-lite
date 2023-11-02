@@ -16,7 +16,7 @@ global $wpdb;
 
 		if(isset($_POST['user-profileBtn']) && wp_verify_nonce( $_POST['user-profileBtn'], 'profileBtn' ) && isset($_POST['profileBtn']) ) {
 		$message = '';
-			if($_POST['password'] != '')
+			if(isset($_POST['password']) && $_POST['password'] != '')
 				wp_update_user( array( 'ID' => $curUserID, 'user_pass' => sanitize_text_field($_POST['password']) ) );
 			
 			if($_POST['fullname'] != '')

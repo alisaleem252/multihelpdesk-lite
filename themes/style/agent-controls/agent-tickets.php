@@ -79,18 +79,23 @@
                 </td>
             	<td >
 					<table>
-                    <?php if(isset($tickets[0])){ ?>
-                    	<tr><td colspan="5" class="tick_gen_cols"><?php if($pages > 1){?>
+                    <?php if(isset($tickets[0])){
+                    	        if($pages > 1){?>
+									<tr><th colspan="6" class="tick_gen_cols">
               
-                Pages: <a>&laquo;</a></li><?php
-                    for($index = 1; $index <= $pages; $index++){?>
-                        
-                            <a href="?action=<?php echo $url_action_value.'&id='.$agent_id.'&pagenumber='.$index; ?>" ><?php echo $index; ?></a>
-    <?php			} // for($index = 1; $index <= $pages; $index++) ?>
-                <a>&raquo;</a>
+										Pages: <a>&laquo;</a> <?php
+											for($index = 1; $index <= $pages; $index++){
+												if($url_action_value && $url_action_value != 'edit')
+													echo '<a href="?action='.$url_action_value.'&pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												else
+													echo '<a href="?pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												?>
+							<?php			} // for($index = 1; $index <= $pages; $index++) ?>
+										 <a>&raquo;</a>
               
             
-    <?php } // if($pages > 1) ?></td></tr>
+    								<br /></th></tr>
+                               <?php } // if($pages > 1) ?>
                         <tr><th colspan="5" class="tick_gen_cols">*<?php _e('LDAT* = Last Date/Time Activity of the Ticket','mhelpdesk');?></th></tr>
                         
                          <tr>
@@ -150,20 +155,24 @@ if ( $rating ){
                                 <tr>
                                     <td colspan="5"><?php echo '<h2 class="error">'.__('Not Found!','mhelpdesk').'</h2>'; ?></td>
                                 </tr>
-						<?php } ?>
-                        <tr>
-                            <td colspan="5" class="tick_gen_cols"><?php if($pages > 1){?>
-              
-                Pages: <a>&laquo;</a></li><?php
-                    for($index = 1; $index <= $pages; $index++){?>
+						<?php } 
                         
-                            <a href="?action=<?php echo $url_action_value.'&id='.$agent_id.'&pagenumber='.$index; ?>" ><?php echo $index; ?></a>
-    <?php			} // for($index = 1; $index <= $pages; $index++) ?>
-                <a>&raquo;</a>
+                        if($pages > 1){?>
+									<tr><th colspan="6" class="tick_gen_cols">
+              
+										Pages: <a>&laquo;</a> <?php
+											for($index = 1; $index <= $pages; $index++){
+												if($url_action_value && $url_action_value != 'edit')
+													echo '<a href="?action='.$url_action_value.'&pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												else
+													echo '<a href="?pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+												?>
+							<?php			} // for($index = 1; $index <= $pages; $index++) ?>
+										 <a>&raquo;</a>
               
             
-    <?php } // if($pages > 1) ?></td>
-                        </tr>
+    								<br /></th></tr>
+                               <?php } // if($pages > 1) ?>
                      </table>                
                 </td>                
             </tr>
@@ -324,7 +333,191 @@ if(isset($_GET['action']) && $_GET['action'] == 'edit'){
 <?php
 		} // if(isset($tickAuthObj[0]))
 	else echo '<h1 class="error">'.__('Invalid Ticket Accessed','mhelpdesk').'!</h1>';
-} // if($_GET['action'] == 'edit')?>
+} // if($_GET['action'] == 'edit')
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////
+// View Multiple types of Tickets [new/answered/solved etc]
+////////////////////////////////////////////////////////////
+
+if((isset($_GET['action']) && $_GET['action'] != 'edit' && $_GET['action'] != 'delete') || !isset($_GET['action']) ){?>
+    <form method="get">
+      <div class="input-group" class="input-group width400px">
+      
+<?php						if(isset($_GET['action'])){	?>
+          <input type="hidden" name="action" value="<?php echo $_GET['action'] ?>" />
+<?php 						} //if(isset($_GET['action']))	?>
+          <select name="group" class="form-control">
+      <?php 	foreach($company_departments as $company_department){?>
+              <option value="<?php echo $company_department?>"
+              <?php echo (isset($_GET['group']) && $_GET['group']==$company_department ? 'selected' : '' )?> ><?php echo $company_department?></option>
+      <?php 	} //foreach($company_departments as $company_department){?>
+          </select>
+
+            <div class="input-group-btn">
+              <button class="btn btn-block btn-info"><?php esc_html_e('Find Selected Group Tickets','mhelpdesk')?></button>
+           </div>
+       
+      </div>
+     </form>
+
+
+<form name="answeredForm" method="POST" action="#">          
+<table class="ticketswrap">
+<tr>
+<td colspan="2">
+<div class="viewticket_td">
+  <span class="viewticket_as">
+      <?php 
+  if(!$url_action_value) echo "All Tickets"; elseif($url_action_value == 'new') esc_html_e("New Tickets",'mhelpdesk'); elseif($url_action_value == 'rated') esc_html_e("Rated Tickets",'mhelpdesk'); 
+  elseif($url_action_value == 'opened') esc_html_e("Opened Tickets",'mhelpdesk'); elseif($url_action_value == 'unanswered') esc_html_e("Un-Answered Tickets",'mhelpdesk');
+  elseif($url_action_value == 'answered') esc_html_e("Answered Tickets",'mhelpdesk'); elseif($url_action_value == 'solved') esc_html_e("Solved Tickets",'mhelpdesk');
+  elseif($url_action_value == 'closed') esc_html_e("Closed Tickets",'mhelpdesk'); else esc_html_e("Search Results for ",'mhelpdesk')." :: $search_string";  ?>
+      
+  </span>
+  
+
+  <span class="searchblock_right">
+          <!--select name="group" class="form-control">
+      <?php 	foreach($company_departments as $company_department){?>
+              <option value="<?php echo $company_department?>"
+              <?php echo (isset($_REQUEST['group']) && $_REQUEST['group']==$company_department ? 'selected' : '' )?> ><?php echo $company_department?></option>
+      <?php 	} //foreach($company_departments as $company_department){?>
+          </select-->
+
+          <input type="text" name="search_tickets" placeholder="Search Ticket Text" value="<?php echo (isset($_REQUEST['search_tickets']) && $_REQUEST['search_tickets'] != '' ? $_REQUEST['search_tickets'] : '')?>" />
+          <input type="hidden" name="action" value="search" />
+          <input type="submit" value="Search..." />
+  </span>
+</div>
+
+  
+</td>
+</tr>
+<tr>
+<td>
+  <?php showAgent_leftmenu(); ?>
+</td>
+<td>
+  <table>
+      <?php if(isset($tickets[0])){
+          if($pages > 1){?>
+              <tr><th colspan="6" class="tick_gen_cols">
+
+                  Pages: <a>&laquo;</a> <?php
+                      for($index = 1; $index <= $pages; $index++){
+                          if($url_action_value && $url_action_value != 'edit')
+                              echo '<a href="?action='.$url_action_value.'&pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+                          else
+                              echo '<a href="?pagenumber='.$index.'" >'.$index.'</a> &nbsp; ';
+                          ?>
+      <?php			} // for($index = 1; $index <= $pages; $index++) ?>
+                   <a>&raquo;</a>
+
+
+              <br /></th></tr>
+         <?php } // if($pages > 1) ?>
+              
+<tr><th colspan="6">
+      <input type="submit" name="checkbox_del_btn" value="Delete" />
+       <?php wp_nonce_field('newTicketForm', 'ticket-newTicketForm'); ?>
+  </th></tr>
+               <tr>
+                  <th>&nbsp;</th>
+                  <th class="tick_gen_cols"><?php esc_html_e('Ticket Title','mhelpdesk');?></th>
+                  <th class="tick_gen_cols"><?php esc_html_e('Agent','mhelpdesk');?></th>
+                  <th class="tick_gen_cols"><?php esc_html_e('Customer','mhelpdesk');?></th>
+                  <th class="tick_gen_cols"><?php esc_html_e('Status','mhelpdesk');?></th>
+                  <th class="tick_gen_cols"><?php esc_html_e('Updated','mhelpdesk');?>*</th>
+               </tr>                    
+  <?php foreach($tickets as $tick_DB_ID_obj){ 
+$ticketAuthorID = $tick_DB_ID_obj->post_author;
+
+$ticketAuthorDisplayname_DB_Obj = $wpdb->get_results("SELECT display_name FROM $wpdb->users WHERE ID = '$ticketAuthorID'");?>            
+
+              <tr>
+              <td class="tick_del_CBs_col"><input type="checkbox" name="ticketCBs[]" value="<?php echo $tick_DB_ID_obj->ID;?>" /></td>
+                  <td class="tick_gen_cols">
+                      <a href="?action=edit&id=<?php echo $tick_DB_ID_obj->ID; ?>"><?php echo $tick_DB_ID_obj->post_title; ?></a><br /><?php esc_html_e('ID: ','mhelpdesk'); echo $tick_DB_ID_obj->ID;?><br />
+<?php $rating = get_metadata('post',$tick_DB_ID_obj->ID,"ticket-rating",true);
+if ( $rating ){
+?>
+<div class="comments-content">
+<div class="rating">
+<?php
+for($i = 5; $i >= 1; $i = $i - 1){
+echo '<span '.($i <= $rating ? 'class=fillstar' : '').'>&#9734;</span>';
+} //end for loop
+?>
+</div>
+</div>
+<?php
+} // if ( $rating ) ?>
+                      <p>
+                       <a href="?action=edit&id=<?php echo $tick_DB_ID_obj->ID; ?>"><?php esc_html_e('Edit','mhelpdesk');?></a> 
+                       
+                      </p>
+                  </td>
+                  <td class="tick_gen_cols">
+                      <?php $tickSelectedAgentID = get_metadata('post',$tick_DB_ID_obj->ID, 'ticket-selectedAgent',true);
+$userAgent_DB_Obj = $wpdb->get_results("SELECT display_name FROM $wpdb->users WHERE ID = '$tickSelectedAgentID'");
+                      echo (isset($userAgent_DB_Obj[0]) ? $userAgent_DB_Obj[0]->display_name : 'No Assigned'); 
+                      ?>
+                  </td>
+                  <td class="tick_gen_cols"><?php echo $ticketAuthorDisplayname_DB_Obj[0]->display_name; ?></td>
+                  <td class="tick_gen_cols">
+                      <?php 
+echo get_post_meta($tick_DB_ID_obj->ID, 'ticket-status',true).' &<br />'.get_post_meta($tick_DB_ID_obj->ID, 'ticket-action-status',true); 
+                      ?>
+                  </td>
+                  <td class="tick_gen_cols"><?php echo $tick_DB_ID_obj->post_modified;?></td>
+              </tr>
+  <?php 
+          
+      } // foreach($tick_DB_ID_objs as $tick_DB_ID_obj) 
+  } // if(isset($tick_DB_ID_objs[0]))
+           else {?>
+              
+                      <tr>
+                      <td colspan="6">
+                          <?php echo '<h1 >'.__('No '.strtoupper($url_action_value).' ticket at the moment!','mhelpdesk').'</h1>'; ?></td>
+                      </tr>
+          <?php } ?>
+                      <tr>
+                  <th colspan="6"><?php if($pages > 1){?>
+
+                      Pages: 
+                      <a>&laquo;</a><?php
+                          for($index = 1; $index <= $pages; $index++){?>
+
+                          <a href="?pagenumber=<?php echo $index; ?>" ><?php echo $index; ?></a> &nbsp;  
+                          <?php			} // for($index = 1; $index <= $pages; $index++) ?>
+                      <a>&raquo;</a>
+
+
+                      <?php } // if($pages > 1) ?> 
+                  </th>
+              </tr>
+      </table>                
+</td>                
+</tr>
+</table>   
+</form>   
+<?php 
+} // if(isset($_GET['action']))  // solved/answered/solved
+
+
+
+?>
+
+
 
 
 				</div>

@@ -21,9 +21,8 @@
 		<tr>
 			<th class="tick_gen_cols"><?php _e('My Name','mhelpdesk');?></th>
 			<td>
-				<input title="<?php _e('Enter your complete name properly; however only these 2 special characters [. -] are allowed','mhelpdesk');?>" 
-				type="text" pattern="[a-zA-Z]+(([\.\- ][a-zA-Z ])?[a-zA-Z]*)*" class="tick_textarea"
-				name="fullname" onchange="this.setCustomValidity(this.validity.patternMismatch ? '' : '');" value="<?php echo $curUserInfoObj[0]->display_name; ?>" required />
+				<input type="text" class="tick_textarea"
+				name="fullname" value="<?php echo $curUserInfoObj[0]->display_name; ?>" required />
 			</td>
 		</tr>
 		<tr>

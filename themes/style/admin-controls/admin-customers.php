@@ -161,7 +161,7 @@ if($pages > 1){?>
 	
         </table> <a href="<?php echo get_permalink($comp_DB_ID)."admin/customers";?>" ><?php _e("Go Back to Customer's Home Link",'mhelpdesk');?></a>
 <?php  } // if(isset($customerTickets_DB_objs[0]))
-		 else echo '<h1 >'.__('The Company has no ticket at the moment!','mhelpdesk').'</h1>'; ?>
+		 else echo '<h1 >'.__('The Company has no ticket (of type) at the moment!','mhelpdesk').'</h1>'; ?>
         	
 <?php	
 		} // if(!isset($compCustomerBlocked_DB_arr[$relevantCID_foundIndex]))

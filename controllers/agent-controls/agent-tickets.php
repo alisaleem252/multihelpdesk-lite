@@ -5,7 +5,8 @@
 
 	if ( !is_user_logged_in() )
 	wp_safe_redirect(site_url().'/'.$helpdesk_rewriterule_slug);
-
+	
+$pages = array();
 $urlCompSlug = get_query_var('companyname');
 $userRole = get_query_var('userrole');
 $curUserID = get_current_user_id();
@@ -180,9 +181,9 @@ AND ticketposts.post_status = 'publish' ORDER BY ticketposts.post_modified DESC"
 
 ?>
 <div class="msidemenu">
-<p><a href="<?php echo get_permalink($comp_DB_ID)."agent/tickets/?pagenumber=1/"; ?>">
+<p><a href="<?php echo get_permalink($comp_DB_ID)."agent/tickets/?pagenumber=1"; ?>">
 	<?php _e('All Assigned Tickets','mhelpdesk');?><span class="ticketcounter_right">(<?php echo count($tickAll_DB_ID_objs); ?>)</span></a></p>
-<p><a href="?action=new&pagenumber=1"><?php _e('New/ Un-Assigned Tickets','mhelpdesk');?><span class="ticketcounter_right">(<?php echo $unassingedTickCounter; ?>)</span></a></p>
+<p><a href="?action=new&pagenumber=1"><?php _e('New Tickets','mhelpdesk');?><span class="ticketcounter_right">(<?php echo $unassingedTickCounter; ?>)</span></a></p>
 <p><a href="?action=opened&id=<?php echo $agent_id; ?>&pagenumber=1"><?php _e('Opened','mhelpdesk');?>
 	<span class="ticketcounter_right">(<?php echo count($tickOpened_DB_ID_objs); ?>)</span></a></p>
 <p><a href="?action=closed&id=<?php echo $agent_id; ?>&pagenumber=1"><?php _e('Closed','mhelpdesk');?>
@@ -488,7 +489,6 @@ ORDER BY ticketposts.post_modified DESC");
 }
 
 
-$pages = array();
 $pages = count($pages) / (int)$ticketsperpage;
 if($pages > 0) if(is_float($pages)) $pages = ((int)$pages +1);
 
