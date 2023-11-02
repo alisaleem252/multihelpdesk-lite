@@ -34,7 +34,7 @@ $comp_DB_ID_obj = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_typ
 									'ID' => $comp_DB_ID,
 									'post_type' => 'companies',
 									'post_title' => sanitize_text_field($_POST['companyTitle']),
-									'post_content' => strip_tags(sanitize_textarea_field($_POST['intro']),'<blockquote><h1><h2><h3><h4><h5><h6><div><p><ul><ol><li><span><br><pre><sup><sub><u><strong><i><em><s><img><a><div>'),
+									'post_content' => strip_tags($_POST['intro'],'<blockquote><h1><h2><h3><h4><h5><h6><div><p><ul><ol><li><span><br><pre><sup><sub><u><strong><i><em><s><img><a><div>'),
 									'post_status' => 'publish'
 			 					);
 

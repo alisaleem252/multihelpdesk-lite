@@ -134,7 +134,7 @@ global $wpdb;
 						'comment_post_ID' 		=> $ticket_postID,
 						'comment_author' 		=> $current_userInfo->display_name,
 						'comment_author_email' 	=> $current_userInfo->user_email,
-						'comment_content' 		=> strip_tags(sanitize_text_field($_POST['customerComment']),'<blockquote><h1><h2><h3><h4><h5><h6><div><p><ul><ol><li><span><br><pre><sup><sub><u><strong><i><em><s>'),
+						'comment_content' 		=> strip_tags($_POST['customerComment'],'<blockquote><h1><h2><h3><h4><h5><h6><div><p><ul><ol><li><span><br><pre><sup><sub><u><strong><i><em><s>'),
 						'comment_type' 			=> 'comment',
 						'comment_approved' 		=> 1,
 					);

@@ -327,7 +327,7 @@ $userAgent_DB_Obj = $wpdb->get_results("SELECT user_email FROM $wpdb->users WHER
 	
 //$tickOwner_DB_Obj = $wpdb->get_results("SELECT user_email FROM $wpdb->users WHERE ID = $newTickArr[tickOwnerID]");
 	
-		//if( isset($userAgent_DB_Obj[0]) ){
+		if( isset($userAgent_DB_Obj[0]) ){
 			$headers  = "From: ".get_bloginfo('name')." <'".get_option('admin_email')."'>\r\n";
 			$to = $userAgent_DB_Obj[0]->user_email;
 		if(isset($_POST['rating']) && $_POST['rating'] != '')
@@ -343,7 +343,7 @@ $userAgent_DB_Obj = $wpdb->get_results("SELECT user_email FROM $wpdb->users WHER
 			hd_mail( $to, $subject, $message, $headers);
 		
 		
-		//} // if(isset($tickOwner_DB_Obj[0]) && isset($compAdmin_DB_Obj[0]))
+		} // if(isset($tickOwner_DB_Obj[0]) && isset($compAdmin_DB_Obj[0]))
 	//}// if($companyArr['statusFlag'] == 'created' || $companyArr['statusFlag'] == 'updated')
 } // function notifyTickOwner($newTickArr)
 
