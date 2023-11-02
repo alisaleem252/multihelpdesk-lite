@@ -12,13 +12,14 @@
 $urlCompSlug = get_query_var('companyname');
 $userRole = get_query_var('userrole');
 $curUserID = get_current_user_id();
+$message='';
 global $wpdb;
 
 	$comp_DB_ID_obj = $wpdb->get_results("SELECT ID FROM $wpdb->posts WHERE post_type = 'companies' AND post_status = 'publish' AND post_name = '$urlCompSlug'");
 
 		if(isset($_POST['user-profileBtn']) && wp_verify_nonce( $_POST['user-profileBtn'], 'profileBtn' ) && isset($_POST['profileBtn']) ) {
 		
-			if($_POST['password'] != '')
+			if(isset($_POST['password']) && $_POST['password'] != '')
 				wp_update_user( array( 'ID' => $curUserID, 'user_pass' => sanitize_text_field($_POST['password']) ) );
 			
 			if($_POST['fullname'] != '')
