@@ -3,8 +3,8 @@ Contributors: zinger252
 Donate link: https://webostock.com/market-item/multi-helpdesk-ticket-system-pro/31392/
 Tags: support, ticket, helpdesk, support system, ticket system
 Requires at least: 4.6
-Tested up to: 6.2.2
-Stable tag: 4.3
+Tested up to: 6.4
+Stable tag: 4.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

@@ -1,7 +1,7 @@
 <?php
 /*
 	Plugin Name: (Lite) Ticket Help Desk System Pro
-	Version: 4.3.1
+	Version: 4.5
 	Plugin URI: http://multihelpdesk.com/
 	Description: Easily Setup Helpdesk Support System for Multiple Companies
 	Author: Gigsix | Alisaleem252
