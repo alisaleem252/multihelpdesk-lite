@@ -2,10 +2,10 @@
 /*
 	Plugin Name: (Lite) Ticket Help Desk System Pro
 	Version: 4.5
-	Plugin URI: http://multihelpdesk.com/
+	Plugin URI: https://multihelpdesk.com/
 	Description: Easily Setup Helpdesk Support System for Multiple Companies
 	Author: Gigsix | Alisaleem252
-	Author URI: http://gigsix.com
+	Author URI: https://gigsix.com
  	Text Domain: mhelpdesk
 	
 */
